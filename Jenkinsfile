@@ -2,7 +2,7 @@ pipeline {
     agent any
     triggers { pollSCM('* * * * *')}
     parameters {
-        choice(name: 'BRANCH', choices: ['master', 'task'], description: 'build choice')
+        choice(name: 'BRANCH', choices: ['main', 'task'], description: 'build choice')
     }
     stages{
         stage('vcs'){
