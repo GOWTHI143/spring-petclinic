@@ -5,8 +5,8 @@ pipeline {
             steps {
                 mail subject:'Build Started',
                      body:'Build Started',
-                     to:'boggarapusaigowtham@gmail.com',
-                git url:"https://github.com/GOWTHI143/spring-petclinic.git",
+                     to:'boggarapusaigowtham@gmail.com'
+                git url: "https://github.com/GOWTHI143/spring-petclinic.git",
                     branch:"task"
             }
         }
@@ -41,7 +41,7 @@ pipeline {
             steps {
                 mail subject: 'Docker stage',
                      body: 'docker image build started',
-                     to: 'boggarapusaigowtham@gmail.com',
+                     to: 'boggarapusaigowtham@gmail.com'
                 sh """docker image build -t gowtham143.jfrog.io/gowtham-docker/spc:1.0 .
                       docker push gowtham143.jfrog.io/gowtham-docker/spc:1.0"""
             // script {
