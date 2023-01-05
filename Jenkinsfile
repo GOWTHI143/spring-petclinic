@@ -13,7 +13,7 @@ pipeline {
             steps{
                 rtMavenDeployer (
                     id: "MAVEN_DEPLOYER",
-                    serverId: "JFROG",
+                    serverId: "JFROG2",
                     releaseRepo: "gowtham-libs-release-local",
                     snapshotRepo: "gowtham-libs-snapshot-local"
                 )          
@@ -31,7 +31,7 @@ pipeline {
         stage('publish') {
             steps {
                 rtPublishBuildInfo (
-                    serverId: "JFROG"
+                    serverId: "JFROG2"
                 )
             }
          }
