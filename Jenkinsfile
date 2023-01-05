@@ -28,7 +28,7 @@ pipeline {
                     deployerId: "MAVEN_DEPLOYER" )
             }
         }
-         stage('publish') {
+        stage('publish') {
             steps {
                 rtPublishBuildInfo (
                     serverId: "JFROG"
