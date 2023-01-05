@@ -1,20 +1,39 @@
 pipeline {
-    agent any
+    agent {label 'task'}
     triggers { pollSCM('* * * * *')}
-    parameters {
-        choice(name: 'BRANCH', choices: ['main', 'task'], description: 'build choice')
-    }
+    tools {maven 'MAVEN-3.8.7'}
     stages{
-        stage('vcs'){
+        stage('vcs') {
             steps {
-                git branch: "${params.BRANCH}",
+                git branch: "task",
                     url:'https://github.com/GOWTHI143/spring-petclinic.git'
             }
         }
         stage('build') {
             steps{
-                sh 'mvn clean install'
-                }
+                rtMavenDeployer (
+                    id: "MAVEN_DEPLOYER",
+                    serverId: "JFROG",
+                    releaseRepo: "gowtham-libs-release-local",
+                    snapshotRepo: "gowtham-libs-snapshot-local"
+                )          
+            }
         }
+        stage ('Exec Maven') {
+            steps {
+                rtMavenRun (
+                    tool: MAVEN, // Tool name from Jenkins configuration
+                    pom: 'pom.xml',
+                    goals: "mvn package",
+                    deployerId: "MAVEN_DEPLOYER" )
+            }
+        }
+         stage('publish') {
+            steps {
+                rtPublishBuildInfo (
+                    serverId: "JFROG"
+                )
+            }
+         }
     }
 }
