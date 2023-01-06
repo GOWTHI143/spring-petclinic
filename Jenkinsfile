@@ -1,61 +1,61 @@
 pipeline {
     agent{label'all'}
     stages{
-        stage('vcs') {
-            steps {
-                // mail subject: 'Build Started',
-                //      body: 'Build Started',
-                //      to: 'boggarapusaigowtham@gmail.com'
-                git url:'https://github.com/GOWTHI143/spring-petclinic.git' ,
-                    branch:'task'
-            }
-        }
-        stage('Jfrog package build') {
-            steps {
-                rtMavenDeployer (
-                    id: "MAVEN_DEPLOYER",
-                    serverId: "JFROG2023",
-                    releaseRepo: "gowtham-libs-release-local",
-                    snapshotRepo: "gowtham-libs-snapshot-local"
-                )
-            }
-        }
-        stage ('Exec Maven') {
-            steps {
-                rtMavenRun (
-                    tool: "MAVEN_TOOL", // Tool name from Jenkins configuration
-                    pom: 'pom.xml',
-                    goals: 'clean install ',
-                    deployerId: "MAVEN_DEPLOYER"
-                )
-            }
-        }
-        stage ('Publish build info') {
-            steps {
-                rtPublishBuildInfo (
-                    serverId: "JFROG2023"
-                )
-            }
-        }
-        stage('sonar scan'){
-            steps{
-                withSonarQubeEnv('SONAR') {
-                    sh " mvn package sonar:sonar"
-                }
-            }
-        }
-        // stage ('Build docker image') {
+        // stage('vcs') {
         //     steps {
-        //         mail subject: 'Docker stage',
-        //              body: 'docker image build started',
-        //              to: 'boggarapusaigowtham@gmail.com'
-        //         sh """docker image build -t gowtham143.jfrog.io/gowtham-docker/spc:2.0 .
-        //               docker push gowtham143.jfrog.io/gowtham-docker/spc:2.0"""
-            // script {
-            //     docker.build('gowtham-docker-local/spc:1.0', "-f Dockerfile .")
-            // }
+        //         // mail subject: 'Build Started',
+        //         //      body: 'Build Started',
+        //         //      to: 'boggarapusaigowtham@gmail.com'
+        //         git url:'https://github.com/GOWTHI143/spring-petclinic.git' ,
+        //             branch:'task'
         //     }
         // }
+        // stage('Jfrog package build') {
+        //     steps {
+        //         rtMavenDeployer (
+        //             id: "MAVEN_DEPLOYER",
+        //             serverId: "JFROG2023",
+        //             releaseRepo: "gowtham-libs-release-local",
+        //             snapshotRepo: "gowtham-libs-snapshot-local"
+        //         )
+        //     }
+        // }
+        // stage ('Exec Maven') {
+        //     steps {
+        //         rtMavenRun (
+        //             tool: "MAVEN_TOOL", // Tool name from Jenkins configuration
+        //             pom: 'pom.xml',
+        //             goals: 'clean install ',
+        //             deployerId: "MAVEN_DEPLOYER"
+        //         )
+        //     }
+        // }
+        // stage ('Publish build info') {
+        //     steps {
+        //         rtPublishBuildInfo (
+        //             serverId: "JFROG2023"
+        //         )
+        //     }
+        // }
+        // stage('sonar scan'){
+        //     steps{
+        //         withSonarQubeEnv('SONAR') {
+        //             sh " mvn package sonar:sonar"
+        //         }
+        //     }
+        // }
+        stage ('Build docker image') {
+            steps {
+                mail subject: 'Docker stage',
+                     body: 'docker image build started',
+                     to: 'boggarapusaigowtham@gmail.com'
+                sh """docker image build -t gowtham143.jfrog.io/gowtham-docker/spc:2.0 .
+                      docker push gowtham143.jfrog.io/gowtham-docker/spc:2.0"""
+            script {
+                docker.build('gowtham-docker-local/spc:1.0', "-f Dockerfile .")
+            }
+            }
+        }
     // stage ('Push image to Artifactory') {
     //     steps {
     //         rtDockerPush(
