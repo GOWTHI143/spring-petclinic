@@ -7,7 +7,7 @@ pipeline {
                      body: 'Build Started',
                      to: 'boggarapusaigowtham@gmail.com'
                 git url: 'https://github.com/GOWTHI143/spring-petclinic.git' ,
-                    branch:"task"
+                    branch:'task'
             }
         }
         stage('Jfrog package build') {
@@ -25,7 +25,7 @@ pipeline {
                 rtMavenRun (
                     tool: "MAVEN_TOOL", // Tool name from Jenkins configuration
                     pom: 'pom.xml',
-                    goals: 'package',
+                    goals: 'clean install ',
                     deployerId: "MAVEN_DEPLOYER"
                 )
             }
