@@ -54,8 +54,8 @@ pipeline {
             // script {
             //     docker.build('gowtham-docker-local/spc:1.0', "-f Dockerfile .")
             // }
-            }
-        }
+        //     }
+        // }
     // stage ('Push image to Artifactory') {
     //     steps {
     //         rtDockerPush(
