@@ -46,14 +46,14 @@ pipeline {
         // }
         stage ('Build docker image') {
             steps {
-                mail subject: 'Docker stage',
-                     body: 'docker image build started',
-                     to: 'boggarapusaigowtham@gmail.com'
+                // mail subject: 'Docker stage',
+                //      body: 'docker image build started',
+                //      to: 'boggarapusaigowtham@gmail.com'
                 sh """docker image build -t gowtham143.jfrog.io/gowtham-docker/spc:2.0 .
                       docker push gowtham143.jfrog.io/gowtham-docker/spc:2.0"""
-            script {
-                docker.build('gowtham-docker-local/spc:1.0', "-f Dockerfile .")
-            }
+            // script {
+            //     docker.build('gowtham-docker-local/spc:1.0', "-f Dockerfile .")
+            // }
             }
         }
     // stage ('Push image to Artifactory') {
