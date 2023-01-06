@@ -72,16 +72,16 @@ pipeline {
     //     }
     // }
     }
-    post {
-         success{
-                mail subject: 'Build success',
-                     body: 'Build success',
-                     to: 'boggarapusaigowtham@gmail.com'
-         }
-            failure {
-            mail subject: 'Build Failed',
-                  body: 'Build Failed',
-                  to: 'boggarapusaigowtham@gmail.com'
-            }
-    }
+    // post {
+    //      success{
+    //             mail subject: 'Build success',
+    //                  body: 'Build success',
+    //                  to: 'boggarapusaigowtham@gmail.com'
+    //      }
+    //         failure {
+    //         mail subject: 'Build Failed',
+    //               body: 'Build Failed',
+    //               to: 'boggarapusaigowtham@gmail.com'
+    //         }
+    // }
 }
