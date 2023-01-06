@@ -3,10 +3,10 @@ pipeline {
     stages{
         stage('vcs') {
             steps {
-                mail subject: 'Build Started',
-                     body: 'Build Started',
-                     to: 'boggarapusaigowtham@gmail.com'
-                git url: 'https://github.com/GOWTHI143/spring-petclinic.git' ,
+                // mail subject: 'Build Started',
+                //      body: 'Build Started',
+                //      to: 'boggarapusaigowtham@gmail.com'
+                git url:'https://github.com/GOWTHI143/spring-petclinic.git' ,
                     branch:'task'
             }
         }
